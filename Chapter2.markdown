@@ -4,7 +4,7 @@
 
 ## 目录
 
-- [启用Angular](#启用angular)
+- [启用Angular](#启用Angular)
 	- [加载脚本](#加载脚本)
 	- [使用ng-app声明Angular的界限](#使用ng-app声明angular的界限)
 - [模型/视图/控制器](#模型视图控制器)
