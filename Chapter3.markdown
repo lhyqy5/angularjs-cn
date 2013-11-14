@@ -455,7 +455,7 @@ Figure 3-5. AngularJS properties within Batarang
 
 	curl -L get .yeoman.io | bash
 
-> 译注: Yeoman 已经可以通过 npm 安装 `npm install -g yeoman`
+> 译注: Yeoman已经可以通过npm安装`npm install -g yeoman`
 
 然后只需按照打印的只是来获取Yeoman.
 
