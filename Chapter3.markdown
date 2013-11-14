@@ -455,8 +455,6 @@ Figure 3-5. AngularJS properties within Batarang
 
 	curl -L get .yeoman.io | bash
 
-> 译注: Yeoman已经可以通过npm安装`npm install -g yeoman`
-
 然后只需按照打印的只是来获取Yeoman.
 
 对于Windows机器, 或者运行它是遇到任何问题, 到[https://github.com/yeoman/yeoman/wiki/Manual-Install](https://github.com/yeoman/yeoman/wiki/Manual-Install)并按照说明来安装会让你畅通无阻.
