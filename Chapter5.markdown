@@ -27,7 +27,7 @@
 ##通过$http进行通行
 
 从Ajax应用(使用XMLHttpRequests)发动一个请求到服务器的传统方式包括：得到一个XMLHttpRequest对象的引用、发起请求、读取响应、检验错误代码然后最后处理服务器响应。它就是下面这样：
-    
+
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readystate == 4 && xmlhttp.status == 200) {
@@ -40,27 +40,27 @@
     xmlhttp.open(“GET”, “http://myserver/api”, true);
     // Make the request
     xmlhttp.send();
-    
+
 对于这样一个简单、常用且经常重复的任务，上面这个代码量比较大.如果你想重复性地做这件事,你最终可能会做一个封装或者使用现成的库.
 
 AngularJS XHR(XMLHttpRequest) API遵循Promise接口.因为XHRs是异步方法调用，服务器响应将会在未来一个不定的时间返回(当然希望是越快越好).Promise接口保证了这样的响应将会如何处理,它允许Promise接口的消费者以一种可预计的方式使用这些响应.
 
 假设我们想从我们的服务器取回用户的信息.如果接口在/api/user地址可用,并且接受id作为url参数，那么我们的XHR请求就可以像下面这样使用Angular的核心$http服务:
-    
+
     $http.get('api/user', {params: {id: '5'}
     }).success(function(data, status, headers, config) {
     // Do something successful.
     }).error(function(data, status, headers, config) {
     // Handle the error
     });
-    
+
 如果你来自jQuery世界,你可能会注意到：AngularJS和jQuery处理异步需求的方式很相似.
 
 我们上面例子中使用的$htttp.get方法仅仅是AngularJS核心服务$http提供的众多简便方法之一.类似的，如果你想使用AngularJS向相同URL带一些POST请求数据发起一个POST请求，你可以像下面这样做：
 
     var postData = {text: 'long blob of text'};
     // The next line gets appended to the URL as params
-    // so it would become a post request to /api/user?id=5 
+    // so it would become a post request to /api/user?id=5
     var config = {params: {id: '5'}};
     $http.post('api/user', postData, config
     ).success(function(data, status, headers, config) {
@@ -138,16 +138,16 @@ AngularJS有一个默认的头信息,这个头信息将会对所有的发送请�
             // Set DO NOT TRACK for all Get requests
             $httpProvider.default.headers.get['DNT'] = '1';
     });
-    
+
 如果你只想对某个特定的请求设置头信息,而不是设置默认头信息.那么你可以通过给$http服务传递包含指定头信息的config对象来做.相同的定制头信息可以作为第二个参数传递给GET请求,第一个参数是URL字符串：
-    
+
     $http.get('api/user', {
     // Set the Authorization header. In an actual app, you would get the auth
     // token from a service
     headers: {'Authorization': 'Basic Qzsda231231'},
     params: {id: 5}
     }).success(function() { // Handle success });
-    
+
 如何在应用中处理权限验证头信息的成熟示例将会在第八章的Cheetsheets示例部分给出.
 
 ###缓存响应数据
@@ -210,7 +210,7 @@ AngularJS对所有`$http`服务发起的请求和响应做一些基本的转换,
 + 控制器能够正确地把响应数据存储到作用域scope的`names`变量属性中.
 
 在我们的单元测试中构造一个控制器时，我们给它注入一个scope作用域和一个伪造的HTTP服务,在构建测试控制器的方式和生产中构建控制器的方式其实是一样的.这是推荐方法，尽管它看上去上有点复杂。让我看一下具体代码：
-    
+
     describe('NamesListCtrl', function(){
         var scope, ctrl, mockBackend;
 
@@ -233,7 +233,7 @@ AngularJS对所有`$http`服务发起的请求和响应做一些基本的转换,
         it('should fetch names from server on load', function() {
             // Initially, the request has not returned a response
             expect(scope.names).toBeUndefined();
-            
+
             // Tell the fake backend to return responses to all current requests
             // that are in flight.
             mockBackend.flush();
@@ -301,7 +301,7 @@ AngularJS对所有`$http`服务发起的请求和响应做一些基本的转换,
     }]);
 
 取代以上方式，你也可以轻松创建一个在你的应用中始终如一的Angular资源服务，就像下面代码这样：
-    
+
     myAppModule.factory('CreditCard', ['$resource', function($resource) {
         return $resource('/user/:userId/card/:cardId',
             {userId: 123, cardId: '@id'},
@@ -386,12 +386,12 @@ ngResource依赖项是一个封装,它以Angular核心服务`$http`为基础.因
             // Assume that CreditCard resource is used by the controller
             ctrl = $controller(CreditCardCtrl, {$scope: scope});
         }));
-        
+
         it('should fetched list of credit cards', function() {
             // Set expectation for CreditCard.query() call
             mockBackend.expectGET('/user/123/card').
                 respond([{id: '234', number: '11112222'}]);
-            
+
             ctrl.fetchAllCards();
 
             // Initially, the request has not returned a response
@@ -438,7 +438,7 @@ ngResource依赖项是一个封装,它以Angular核心服务`$http`为基础.因
 另外,这种情况对错误处理也有很大影响.错误处理的最好方法是什么?在每次都做错误处理?那代码结构就会非常乱.
 
 为了解决上面这些问题,预期值建议(Promise proposal)机制提供了一个then函数的概念,这个函数会在响应成功返回的时候调用相关的函数去执行,另一方面，当产生错误的时候也会干相同的事，这样整个代码就有嵌套结构变为链式结构.所以之前那个例子用预期值API机制(至少在AngularJS中已经被实现的)改造一下,代码结构会平整许多：
-    
+
     var deferred = $q.defer();
     var fetchUser = function() {
         // After async calls, call deferred.resolve with the response value
@@ -483,7 +483,7 @@ ngResource依赖项是一个封装,它以Angular核心服务`$http`为基础.因
             });
         }
     });
-    
+
     // Ensure that the interceptor we created is part of the interceptor chain
     $httpProvider.responseInterceptors.push('myInterceptor');
 
@@ -530,7 +530,7 @@ AngularJS将会自动的把前缀字符串过滤掉,然后仅仅处理真实JSON
 
 考虑依稀下面这个跨站请求伪造攻击的案例:
 
-+ 用户A登录进他的银行帐号(http\:\/\/www.examplebank.com/)
++ 用户A登录进他的银行帐号(http://www.examplebank.com/)
 + 用户B意识到这点，然后诱导用户A访问用户B的个人主页
 + 主页上有一个特殊手工生成的图片连接地址，这个图片的的指向地址将会导致一次跨站请求伪造攻击,比如如下代码：
 `<img src="http://www.examplebank.com/xfer?from=UserA&amount=10000&to=UserB" />`
