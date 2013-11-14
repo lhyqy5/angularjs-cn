@@ -182,14 +182,14 @@ Yeoman让你很简单的使用一个Web服务器服务你所有的静态资源�
 
 ###Karma
 
-Karma存在的主要的原因是它让你的测试驱动开发(TDD)流程变得简单, 快速和有趣. 它使用NodeJS和SocketIO(你不需要知道它们是什么, 只需要假设它们是很棒很酷的库), 并允许在多个浏览器中及其快速的运行你的代码和测试. 在[https://github.com/vojtajina/karma/](https:// github.com/vojtajina/karma/)中可以找到更多信息.
+Karma存在的主要的原因是它让你的测试驱动开发(TDD)流程变得简单, 快速和有趣. 它使用NodeJS和SocketIO(你不需要知道它们是什么, 只需要假设它们是很棒很酷的库), 并允许在多个浏览器中及其快速的运行你的代码和测试. 在[https://github.com/vojtajina/karma/](https://github.com/vojtajina/karma/)中可以找到更多信息.
 
 > **TDD简介**
 >
 > 测试驱动开发或者TDD, 是一个通过确保在开发生命周期内首先编写测试的敏捷方法, 这是在代码实现之前进行的, 这就是测试驱动的开发(不只是作为一种验证工具).
 >
 > TDD的原则很简单:
-> 
+>
 + 代码只需要在一个所需要的代码测试失败时编写.
 +  编写最少的代码以确保测试通过.
 +  在每一步删除重复代码.
@@ -298,7 +298,7 @@ Scenario Runner允许你按照类Jasmine的语法来描述应用程序. 正如�
   b. 添加一个代理服务器将请求定位到正确的测试文件所在目录, 例如:
 
   	proxies = {'/': 'http://localhost:8000/test/e2e'};
-  
+
   c. 添加一个Karma root(根目录/基础路径)以确保Karma的源文件不会干扰你的测试, 像这样:
 
   	urlRoot = '/_karma_/';
@@ -323,7 +323,7 @@ Angular场景情运行器, 顾名思义, 它是由Angular创建的. 因此, 他�
 
 Angular意识也意味着Angular直到所有的XHR何时向服务器放出, 从而可以避免页面加载所等待的间隔时间. 场景运行器直到何时加载一个页面, 从而比Selenium测试更具确定性, 例如, 超时等待页面加载时任务可能失败.
 
-**调试功能** 
+**调试功能**
 
 探究JavaScript, 如果你查看你的代码不是很好; 当你希望暂停和恢复测试时, 所有的这些都运行场景测试吗? 然而所有的这一切通过Angular场景运行器都是可行的, 等等.
 
@@ -455,9 +455,11 @@ Figure 3-5. AngularJS properties within Batarang
 
 	curl -L get .yeoman.io | bash
 
+> 译注: Yeoman 已经可以通过 npm 安装 `npm install -g yeoman`
+
 然后只需按照打印的只是来获取Yeoman.
 
-对于Windows机器, 或者运行它是遇到任何问题, 到[https://github.com/yeoman/yeoman/ wiki/Manual-Install](https://github.com/yeoman/yeoman/ wiki/Manual-Install)并按照说明来安装会让你畅通无阻.
+对于Windows机器, 或者运行它是遇到任何问题, 到[https://github.com/yeoman/yeoman/wiki/Manual-Install](https://github.com/yeoman/yeoman/wiki/Manual-Install)并按照说明来安装会让你畅通无阻.
 
 ###启动一个新的AngularJS项目
 
@@ -541,7 +543,7 @@ Yeoman不支持压缩文件, 但是根据来发者提供的信息, 它很快会�
     c. /**script**: 主AngularJS代码库. 这个目录也包括我们的引导程序代码, 主要的RequireJS集成
 
         i. /**controllers**: 这里是AngularJS控制器
-        
+
         ii. /**directives**: 这里是AngularJS指令
 
         iii. /**filters**: 这里是AngularJS过滤器
@@ -727,7 +729,7 @@ Yeoman不支持压缩文件, 但是根据来发者提供的信息, 它很快会�
 
     // web server port
     port = 8989;
-    
+
     // cli runner port
     runnerPort = 9898;
 
@@ -740,18 +742,18 @@ Yeoman不支持压缩文件, 但是根据来发者提供的信息, 它很快会�
     // enable/disable watching file and executing tests whenever any file changes
     autoWatch = true;
 
-    // Start these browsers, currently available: 
+    // Start these browsers, currently available:
     // - Chrome
     // - ChromeCanary
     // - Firefox
     // - Opera
     // - Safari
     // - PhantomJS
-    // - IE if you have a windows box 
+    // - IE if you have a windows box
     browsers = ['Chrome'];
-    
+
     // Cont inuous Integrat ion mode
-    // if true, it captures browsers, runs tests, and exits 
+    // if true, it captures browsers, runs tests, and exits
     singleRun = false;
 ```
  我们使用一个稍微不同的格式来定义的我们的依赖(包括: false是非常重要的). 我们还添加了REQUIRE_JS和适配依赖. 最终进行这一系列工作的是`main.js`, 他会触发我们的测试.
@@ -760,7 +762,7 @@ Yeoman不支持压缩文件, 但是根据来发者提供的信息, 它很快会�
 
 	require.config({
 		// !! Karma serves files from '/base'
-		// (in this case, it is the root of the project /your-project/app/js) 
+		// (in this case, it is the root of the project /your-project/app/js)
 		baseUrl: ' /base/app/scr ipts' ,
 		paths: {
         angular: 'vendor/angular/angular.min',
@@ -817,7 +819,7 @@ Yeoman不支持压缩文件, 但是根据来发者提供的信息, 它很快会�
 				elem = $compi le('<input type=”text” ngbk-focus>')($rootScope);
 			}));
 
-			it('should have focus immediately', function() { 
+			it('should have focus immediately', function() {
 				expect(elem.hasClass('focus')).toBeTruthy();
 			});
 		});
@@ -836,7 +838,7 @@ Yeoman不支持压缩文件, 但是根据来发者提供的信息, 它很快会�
 值得庆幸的是, RequireJS的处理方式并不会影响我们所有的端到端的测试, 因此可以使用我们目前所看到的方式简单的做到这一点. 一个范例配置如下, 假设你的服务其在http://localhost:8000上运行你的应用程序:
 ```js
 	// base path, that will be used to resolve files
-	// (in this case is the root of the project 
+	// (in this case is the root of the project
 	basePath = '../';
 
 	// list of files / patterns to load in the browser
@@ -858,7 +860,7 @@ Yeoman不支持压缩文件, 但是根据来发者提供的信息, 它很快会�
 
 	// cli runner port
 	runnerPort = 9898;
-	
+
 	// enable/disable colors in the output (reporters and logs)
 	colors = true;
 
