@@ -490,7 +490,7 @@ Figure 3-5. AngularJS properties within Batarang
 ```bash
 	yeoman init angular:route routeName
 ```
-因此, 如果你运行`yeoman iniy angular route home`结束之后它将执行以下操作:
+因此, 如果你运行`yeoman init angular:route routeName`结束之后它将执行以下操作:
 
 + 在`app/scripts/controllers`目录中创建一个`home.js`控制器骨架
 + 在`test/specs/controllers`目录中创建一个`home.js`测试规范
