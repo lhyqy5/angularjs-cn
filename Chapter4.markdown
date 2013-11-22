@@ -110,7 +110,7 @@ Figure 4-1. Guthub: A simple recipe management application
 
 	services.factory('MultiRecipeLoader', ['Recipe', '$q', function(Recipe, q){
 		return function(){
-			var delay = $.defer();
+			var delay = $q.defer();
 			Recipe.query(function(recipes){
 				delay.resolve(recipes);
 			}, function(){
@@ -244,7 +244,7 @@ Figure 4-1. Guthub: A simple recipe management application
 ```js
 	// This file is app/scripts/directives/directives.js
 
-	var directive = angular.module('guthub.directives', []);
+	var directives = angular.module('guthub.directives', []);
 
 	directives.directive('butterbar', ['$rootScope', function($rootScope){
 		return {
@@ -255,7 +255,7 @@ Figure 4-1. Guthub: A simple recipe management application
 					element.removeClass('hide');
 				});
 
-				$routeScope.$on('$routeChangeSuccess', function(){
+				$rootScope.$on('$routeChangeSuccess', function(){
 					element.addClass('hide');
 				});
 			}
