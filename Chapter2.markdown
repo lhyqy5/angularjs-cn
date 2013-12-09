@@ -486,7 +486,7 @@
 
 这里, `ng-show`和`ng-hide`用于处理这些工作. 它们基于传递给它们的表达式提供显示和隐藏的功能. 即, 当你传递的表达式为true时`ng-show`将显示元素, 当为false时则隐藏元素. 当表达式为true时`ng-hide`隐藏元素, 为false时显示元素. 这取决于你使用哪个更能表达的你意图.
 
-这些指令通过适当的设置元素的样式为`display: block`来显示元素, 设置样式为`display: none`来隐藏元素. 让我们看以个正在构建的Death Ray控制板的虚拟的例子:
+这些指令通过适当的设置元素的样式为`display: block`来显示元素, 设置样式为`display: none`来隐藏元素. 让我们看一个正在构建的Death Ray控制板的虚拟的例子:
 ```html
     <div ng-controller="DeathrayMenuController">
         <p><button ng-click="toggleMenu()">Toggle Menu</button></p>
