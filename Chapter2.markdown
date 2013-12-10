@@ -924,30 +924,13 @@ CountController定义如下:
 你可以也应该创建你自己的服务去处理应用程序所有的特殊任务. 在需要它们时服务可以共享给任何控制器. 因此, 当你需要跨控制器通信和共享状态时使用它们是一个很好的机制. Angular绑定的服务都以`$`开头, 所以你也能够命名它们为任何你喜欢的东西, 这是一个很好的主意, 以避免使用`$`开头带来的命名冲突问题.
 
 你可以使用模块对象的API来定义服务. 这里有三个函数用于创建通用服务, 它们都有不同层次的复杂性和能力:
-```html
-<table>
-    <thead>
-        <tr>
-            <th>Function</th>
-            <th>定义(Defines)</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>provider(name, Object/constructor())</td>
-            <td>一个可配置的服务, 带有复杂的创建逻辑. 如果你传递一个对象, 它应该有一个名为`$get`的函数, 用于返回服务的实例. 否则, Angular会假设你传递了一个构造函数, 当调用它时创建实例.</td>
-        </tr>
-        <tr>
-            <td>factory(name, $get Function())</td>
-            <td>一个不可配置的服务也带有复杂的创建逻辑. 你指定一个函数, 当调用时, 返回服务实例. 你可以认为这和<code>provider(name, { $get: $getFunction()})</code>一样</td>
-        </tr>
-        <tr>
-            <td>service(name, constructor())</td>
-            <td>一个不可配置的服务, 其创建逻辑简单. 就像<code>provider</code>的构造函数选项, Angular调用它来创建服务实例.</td>
-        </tr>                
-    </tbody>
-</table>
-```
+
+|Function                               |定义(Defines)|
+| ------------------------------------- | ----------- |
+|provider(name, Object/constructor())   |一个可配置的服务, 带有复杂的创建逻辑. 如果你传递一个对象, 它应该有一个名为`$get`的函数, 用于返回服务的实例. 否则, Angular会假设你传递了一个构造函数, 当调用它时创建实例.|
+|factory(name, $get Function())         |一个不可配置的服务也带有复杂的创建逻辑. 你指定一个函数, 当调用时, 返回服务实例. 你可以认为这和`provider(name, { $get: $getFunction()})`一样|
+|service(name, constructor())           |一个不可配置的服务, 其创建逻辑简单. 就像`provider`的构造函数选项, Angular调用它来创建服务实例.|
+
 我们稍后再来看`provider()`的配置选项, 现在我们先来使用`factory()`讨论前面的Items例子. 我们可以像这样编写服务:
 ```js
     // Create a module to support our shopping views.
