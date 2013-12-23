@@ -4,14 +4,14 @@
 
 ## 目录
 
-- [启用Angular](#启用angular)
+- [启用Angular](#启用Angular)
 	- [加载脚本](#加载脚本)
 	- [使用ng-app声明Angular的界限](#使用ng-app声明angular的界限)
 - [模型/视图/控制器](#模型视图控制器)
 - [模板和数据绑定](#模板和数据绑定)
 	- [显示文本](#显示文本)
 	- [表单输入](#表单输入)
-	- [不唐突JavaScript的一些话](#不唐突javascript的一些话)
+	- [无侵入JavaScript的一些话](#无侵入javascript的一些话)
 	- [列表, 表格和其他重复的元素](#列表-表格和其他重复的元素)
 	- [隐藏与显示](#隐藏与显示)
 	- [CSS类和样式](#css类和样式)
@@ -322,11 +322,11 @@
     
     }
 ```
-###不唐突JavaScript的一些话
+###无侵入JavaScript的一些话
 
-在你JavaScript开发生涯的某些时刻, 有人可能会告诉你, 你应该编写"不唐突的JavaScript", 在你的HTML中使用`click`, `mousedown`以及其他类似的内联事件处理程序是不好的. 那么他是正确.
+在你JavaScript开发生涯的某些时刻, 有人可能会告诉你, 你应该编写"无侵入的JavaScript", 在你的HTML中使用`click`, `mousedown`以及其他类似的内联事件处理程序是不好的. 那么他是正确.
 
-不唐突的JavaScript思想已经有很多解释, 但是其编码风格的原理大致如下:
+无侵入的JavaScript思想已经有很多解释, 但是其编码风格的原理大致如下:
 
 1. 不是每个人的浏览器都支持JavaScript. 让每个人都能够看到你所有的内容和使用你的应用程序, 而不需要在浏览器中执行代码.
 
@@ -486,7 +486,7 @@
 
 这里, `ng-show`和`ng-hide`用于处理这些工作. 它们基于传递给它们的表达式提供显示和隐藏的功能. 即, 当你传递的表达式为true时`ng-show`将显示元素, 当为false时则隐藏元素. 当表达式为true时`ng-hide`隐藏元素, 为false时显示元素. 这取决于你使用哪个更能表达的你意图.
 
-这些指令通过适当的设置元素的样式为`display: block`来显示元素, 设置样式为`display: none`来隐藏元素. 让我们看以个正在构建的Death Ray控制板的虚拟的例子:
+这些指令通过适当的设置元素的样式为`display: block`来显示元素, 设置样式为`display: none`来隐藏元素. 让我们看一个正在构建的Death Ray控制板的虚拟的例子:
 ```html
     <div ng-controller="DeathrayMenuController">
         <p><button ng-click="toggleMenu()">Toggle Menu</button></p>
@@ -499,7 +499,9 @@
 ```
 ```js
     function DeathrayMenuController($scope){
-        $scope.menuState.show = false;
+        $scope.menuState = {
+        	show: false
+        };
         
         $scope.toggleMenu = function(){
             $scope.menuState.show = !$scope.menuState.show;
@@ -597,7 +599,7 @@
 在模版中, 我们设置`ng-class`为`{selected: $index==selectedRow}`. 当模型中的`selectedRow`属性匹配ng-repeat的`$index`时设置class为selected. 我们还设置一个`ng-click`来通知控制器用户点击了哪一行:
 ```html
     <table ng-controller="RestaurantTableController">
-        <tr ng-repeat="restaurant in directory" ng-click="selectRestaurant($index)" ng-class="{selected: $index==selectedRow">
+        <tr ng-repeat="restaurant in directory" ng-click="selectRestaurant($index)" ng-class="{selected: $index==selectedRow}">
             <td>{{restaurant.name}}</td>
             <td>{{restaurant.cuisine}}</td>
         </tr>

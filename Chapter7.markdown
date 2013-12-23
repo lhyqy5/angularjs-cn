@@ -52,7 +52,7 @@
 		// an external library, like jQuery, then we would have to
 		$scope.$apply();
 	};
-	
+
 ####用或者不用$apply?
 
 对于AngularJS开发者来说什么时候调用`$scope.$apply()`, 什么时候不能调用它是比较混乱的. 互联网上的建议和谣言非常猖獗. 在本小节我们将让它变得非常清楚.
@@ -73,13 +73,13 @@
 		$scope.variable1 = 'some value';
 		excuteSomeAction();
 	});
-	
+
 而不是下面的代码:
 
 	$scope.variable1 = 'some value';
 	excuteSomeAction();
 	$scope.$apply();
-	
+
 尽管这两种方式将有相同的效果, 但是它们的方式明显不同.
 
 第一个会在`excuteSomeAction`被调用时将捕获发生的任何错误,  而后者则会瞧瞧的忽略此类错误. 只有使用第一种方式时你才会从AngularJS中获取错误的提示.
@@ -96,7 +96,7 @@
 			this.$apply(fn);
 		}
 	};
-	
+
 你可以在顶层作用域或者根作用域中捕获到它, 然后在任何地方使用`$scope.$safeApply`函数. 一直都在讨论这个, 希望在未来的版本中这会称为默认的行为.
 
 是否那些其他的方法也可以在`$location`对象中使用呢? 表7-1包含了一个快速的参考用于让你绑定使用.
@@ -181,16 +181,16 @@ Table 7-1 Functions on the $location service
 在默认的Hashbang模式中(使用`hashPrefix`设置为'!'), 或者不支持HTML5模式的旧版浏览器中, 你的URL看起来像这样:
 
 	http://www.superawesomewebsite.com/#!/foo?bar=123#baz
-	
+
 然而在HTML5模式中, URL看起来会像这样:
 
 	http://www.superawesomewebsite.com/foo?bar=123#baz
-	
+
 在这两种情况下, `location.path()`就是`/foo`, `location.search()`就是`bar=123`, location.hash()`就是`baz`. 因此如果是这种情况, 为什么你不希望使用HTML5模式呢?
 
 Hashbang方法能够在所有的浏览器中无缝的工作, 并且只需要最少的配置. 你只需要设置`hashBang`前缀(默认情况下为!)并且你可以做到更好.
 
-HTML模式中, 在另一方面, 还可以通过使用HTML5的History API来访问浏览器的URL. 而`$location`服务能够足够只能的判断浏览器师傅支持HTML5模式, 必要的情况下还可以降级使用Hashbang方法, 因此你不需要担心额外的工作. 但是你不得不注意以下事情:
+HTML模式中, 在另一方面, 还可以通过使用HTML5的History API来访问浏览器的URL. 而`$location`服务能足够智能的判断浏览器是否支持HTML5模式, 必要的情况下还可以降级使用Hashbang方法, 因此你不需要担心额外的工作. 但是你不得不注意以下事情:
 
 **服务端配置**
 
@@ -205,7 +205,7 @@ AngularJS将会以这种形式来在这一点注意这些事情. 它会检测路
 你可以很容易的像下面这样指定一个URL:
 
 	<a href="/some?foo=bar">link</a>
-	
+
 根据你是否使用的HTML5模式, AngularJS会注意分别重定向到`/some?foo=bar`或者`index.html#!/some?foo=bar`. 没有额外的步骤需要你处理. 很棒, 是不是?
 
 但是下面的链接形式像不会被改写, 并且浏览器将在这个页面上执行一个完整的重载:
@@ -213,17 +213,17 @@ AngularJS将会以这种形式来在这一点注意这些事情. 它会检测路
 + a. 链接像下面这样包含一个`target`元素
 
 	<a href="/some/link" target="_self">link<a/>
-	
+
 + b. 链接到一个不用域名的绝对路径:
 
 	<a href="http://www.angularjs.org">link</a>
-	
+
 这里时不同的, 因为它是一个绝对的URL路径, 而前面的记录会使用现有的基础URL.
 
 + c. 链接基于一个不同的已经定义好的路径开始时:
 
 	<a href="/some-other-base/link">link</a>
-	
+
 **Relative Links(相对链接)**
 
 一定要检查所有的相对链接(相对路径), 图片, 脚本等等. 你必须在你主HTML文件的头部指定基本的参照URL(<base href="/my-base">), 或者你必须在每一处使用绝对URLs路径(以/开头的), 因为相对的URL将会使用文档中初试的绝对URL被解析为绝对的URL, 这往往不同于应用程序的根源.
@@ -395,7 +395,7 @@ greeter工厂方法(它就是一个工厂函数或者说构造函数)看起来�
 	angular.module('myApp', []);
 >
 > 以及
-	
+
 	angular.module('myApp');
 
 > 这里的不同之处在于第一种方式会创建一个新的Angular模块，然后它会拉取在方括号([...])中列出的所依赖的模块。第二种方式使用的是现有的模块，它已经在第一次调用用定义好了。
@@ -567,7 +567,7 @@ AngularJS会很认真对待其安全性，它会尝试尽最大的努力以确�
 在AngularJS中其默认行为是：你有一些HTML内容存储在一个变量中并且尝试绑定给它，其返回结果是AngularJS脱离你的内容并打印它。因此，最终得到的HTML内容被视为纯文本内容。
 
 因此：
-	
+
 	<div ng-bind='myUnsafeHTMLContent'></div>
 
 会返回：
