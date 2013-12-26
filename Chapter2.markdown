@@ -1091,9 +1091,10 @@ Angular自带了几个过滤器, 像我们已经看到的currency:
 
 ###*index.html*
 ```html
-    <html ng-app="Amail">
+    <html ng-app="AMail">
         <head>
             <script src="js/angular.js"></script>
+            <script src="js/angular-route.js"></script>
             <script src="js/controllers.js"></script>
         </head>
         <body>
@@ -1140,7 +1141,7 @@ Angular自带了几个过滤器, 像我们已经看到的currency:
 ###*controllers.js*
 ```js
     //Create a module for our core AMail services
-    var aMailServices = angular.module('AMail', []);
+    var aMailServices = angular.module('AMail', ['ngRoute']);
     
     //Set up our mappings between URLs, tempaltes. and  controllers
     function emailRouteConfig($routeProvider){
