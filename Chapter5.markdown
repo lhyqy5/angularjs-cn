@@ -412,7 +412,7 @@ ngResource依赖项是一个封装,它以Angular核心服务`$http`为基础.因
 
 目前为止，我们已经看到了AngulrJS是如何实现它的异步延迟API机制.
 
-预期值建议(Promise proposa)是AngularJS构建异步延迟API的底层基础.作为底层机制,预期值建议(Promise proposa)为异步请求做了下面这些事:
+预期值建议(Promise proposal)是AngularJS构建异步延迟API的底层基础.作为底层机制,预期值建议(Promise proposal)为异步请求做了下面这些事:
 
 + 异步请求返回的是一个预期(promise)而不是一个具体数据值.
 + 预期值有一个`then`函数,这个函数有两个参数，一个参数函数响应"resolved“或者"sucess"事件,另外一个参数函数响应"rejected”或者"failure"事件.这些函数以一个结果参数调用，或者以一个拒绝原因参数调用.
