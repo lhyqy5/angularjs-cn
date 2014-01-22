@@ -1111,7 +1111,7 @@ Angular自带了几个过滤器, 像我们已经看到的currency:
         <tr>
             <td><strong>Sender</strong></td>
             <td><strong>Subject</strong></td>
-            <td><strong>Date</string></td>
+            <td><strong>Date</strong></td>
         </tr>
         <tr ng-repeat="message in messages">
             <td>{{message.sender}}</td>
