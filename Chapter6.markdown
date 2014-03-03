@@ -25,7 +25,7 @@
 虽然我们喜欢这个方便输入的语法, 但是在大部分的HTML验证机制中它不是有效的. 为了支持这些, Angular指令允许你以几种方式调用任意的指令. 以下在表6-1中列出的语法, 都是等价的并能够让你偏爱的[首选的]验证器正常工作
 
 Table 6-1 HTML Validation Schemes
-```html
+
 <table>
 	<thead>
 		<tr>
@@ -57,7 +57,7 @@ Table 6-1 HTML Validation Schemes
 		</tr>
 	</tbody>
 </table>
-```
+
 由于你可以使用任意的这些形式, [AngularJS文档](http://docs.angularjs.org/)中列出了一个驼峰式的指令, 而不是任何这些选项. 例如, 在`ngRepeat`标题下你可以找到`ng-repeat`. 稍后你会看到, 在你定义你自己的指令时你将会使用这种命名格式.
 
 如果你不适用HTML验证器(大多数人都不使用), 你可以很好的使用在目前你所见过的例子中的命名空间-指令[namespace-directive]语法
