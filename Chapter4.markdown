@@ -670,7 +670,7 @@ New控制器几乎与Edit控制器完全一样. 实际上, 你可以结合两个
 	describle('ListCtrl', function(){
 		var mockBackend, recipe;
 		// _$httpBackend_ is the same as $httpBackend. Only written this way to diiferentiate between injected variables and local variables
-		breforeEach(inject(function($rootScope, $controller, _$httpBackend_, Recipe) {
+		beforeEach(inject(function($rootScope, $controller, _$httpBackend_, Recipe) {
 			recipe = Recipe;
 			mockBackend = _$httpBackend_;
 			$scope = $rootScope.$new();
@@ -710,7 +710,7 @@ New控制器几乎与Edit控制器完全一样. 实际上, 你可以结合两个
 
 			expect(recipes).toBeUndefined( ) ;
 
-			mockBackend. f lush() ;
+			mockBackend. flush() ;
 
 			expect(recipes).toEqualData([{id: 1}, {id: 2}]); });
 	});
