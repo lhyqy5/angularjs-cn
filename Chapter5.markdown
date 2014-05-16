@@ -311,13 +311,62 @@ AngularJS对所有`$http`服务发起的请求和响应做一些基本的转换,
 做到现在，你就可以任何时候从Angular注入器里面请求一个CreditCard依赖，你就会得到一个Angular资源,默认情况下，这个资源会提供一些初始的可用方法.表格5-1列出了这些初始方法以及他们的运行行为，这样你就可以知道在服务器怎样配置来配合这些方法了.
 
 表格5-1 一个信用卡reource
-Function                           Method   URL                                        Expected Return
-CreditCard.get({id: 11})           GET      /user/123/card/11                          Single JSON
-CreditCard.save({}, ccard)         POST     /user/123/card with post data “ccard”      Single JSON
-CreditCard.save({id: 11}, ccard)   POST     /user/123/card/11 with post data “ccard”   Single JSON
-CreditCard.query()                 GET      /user/123/card                             JSON Array
-CreditCard.remove({id: 11})        DELETE   /user/123/card/11                          Single JSON
-CreditCard.delete({id: 11})        DELETE   /user/123/card/11                          Single JSON
+<table>
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Method</th>
+      <th>URL</th>
+      <th>Expected</th>
+      <th>Return</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CreditCard.get({id: 11})</td>
+      <td>GET</td>
+      <td>/user/123/card/11</td>
+      <td>Single</td>
+      <td>JSON</td>
+    </tr>
+    <tr>
+      <td>CreditCard.save({}, ccard)</td>
+      <td>POST</td>
+      <td>/user/123/card with post data “ccard”</td>
+      <td>Single</td>
+      <td>JSON</td>
+    </tr>
+    <tr>
+      <td>CreditCard.save({id: 11}, ccard)</td>
+      <td>POST</td>
+      <td>/user/123/card/11 with post data “ccard”</td>
+      <td>Single</td>
+      <td>JSON</td>
+    </tr>
+    <tr>
+      <td>CreditCard.query()</td>
+      <td>GET</td>
+      <td>/user/123/card</td>
+      <td>JSON</td>
+      <td>Array</td>
+    </tr>
+    <tr>
+      <td>CreditCard.remove({id: 11})</td>
+      <td>DELETE</td>
+      <td>/user/123/card/11</td>
+      <td>Single</td>
+      <td>JSON</td>
+    </tr>
+    <tr>
+      <td>CreditCard.delete({id: 11})</td>
+      <td>DELETE</td>
+      <td>/user/123/card/11</td>
+      <td>Single</td>
+      <td>JSON</td>
+    </tr>
+  </tbody>
+</table>
+
 
 让我们看一个信用卡resource使用的代码样例，这样可以让你理解起来觉得更浅显易懂.
 
