@@ -370,6 +370,7 @@ AngularJS对所有`$http`服务发起的请求和响应做一些基本的转换,
 
 让我们看一个信用卡resource使用的代码样例，这样可以让你理解起来觉得更浅显易懂.
 
+```javascript
     // Let us assume that the CreditCard service is injected here
     // We can retrieve a collection from the server which makes the request
     // GET: /user/123/card
@@ -386,6 +387,7 @@ AngularJS对所有`$http`服务发起的请求和响应做一些基本的转换,
         // Makes a POST: /user/123/card/456?amount=9.99&charge=true
         // with data {id:456, number:'1234', name:'J. Smith'}
     });
+```
 
 前面这个样例代码里面发生了很多事情，所以我们将会一个一个地认真讲解其中的重要部分:
 
