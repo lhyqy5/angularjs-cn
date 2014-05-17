@@ -1,5 +1,5 @@
 #与服务器通信
-
+/**/
 目前，我们已经接触过下面要谈的主题的主要内容，这些内容包括你的Angular应用如何规划设计、不同的AngularJS部件如何装配在一起并正常工作以及AngularJS中的模板代码运行机制的一小部分内容。把它们结合在一起，你就可以搭建一些简洁优雅的Web应用，但他们的运作主要还是限制在客户端.在前面第二章,我们接触了一点用`$http`服务做与服务器端通信的内容,但是在这一章,我们将会深入探讨如何在现实世界的真实应用中使用它(`$http`).
 
 在这一章，我们将讨论一下AngularJS如何帮你与服务器端通信，这其中包括在最低抽象等级的层面或者用它提供的优雅的封装器。而且我们将会深入探讨AngularJS如何用内建缓存机制来帮你加速你的应用.如果你想用`SocketIO`开发一个实时的Angular应用,那么第八章有一个例子，演示了如何把·SocketIO·封装成一个指令然后如何使用这个指令，在这一章，我们就不涉及这方面内容了.
@@ -429,33 +429,35 @@ $resource函数的第三个参数是可选的，主要用来传递要在resource
 
 ngResource依赖项是一个封装,它以Angular核心服务`$http`为基础.因此，你可能已经知道如何对它做单元测试了.它和我们看到的对`$http`做单元测试的样例比起来基本没什么真正的变化.你只需要知道最终的服务器端请求应该由resource发起,告诉模拟`$http`服务关于请求的信息.其他的基本都一样.下面我们来看看如何本节测试前面的代码:
 
-    describe('Credit Card Resource', function(){
-        var scope, ctrl, mockBackend;
-        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
-            mockBackend = _$httpBackend_;
-            scope = $rootScope.$new();
-            // Assume that CreditCard resource is used by the controller
-            ctrl = $controller(CreditCardCtrl, {$scope: scope});
-        }));
+```js
+describe('Credit Card Resource', function(){
+    var scope, ctrl, mockBackend;
+    beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+        mockBackend = _$httpBackend_;
+        scope = $rootScope.$new();
+        // Assume that CreditCard resource is used by the controller
+        ctrl = $controller(CreditCardCtrl, {$scope: scope});
+    }));
 
-        it('should fetched list of credit cards', function() {
-            // Set expectation for CreditCard.query() call
-            mockBackend.expectGET('/user/123/card').
-                respond([{id: '234', number: '11112222'}]);
+    it('should fetched list of credit cards', function() {
+        // Set expectation for CreditCard.query() call
+        mockBackend.expectGET('/user/123/card').
+            respond([{id: '234', number: '11112222'}]);
 
-            ctrl.fetchAllCards();
+        ctrl.fetchAllCards();
 
-            // Initially, the request has not returned a response
-            expect(scope.cards).toBeUndefined();
+        // Initially, the request has not returned a response
+        expect(scope.cards).toBeUndefined();
 
-            // Tell the fake backend to return responses to all current requests
-            // that are in flight.
-            mockBackend.flush();
+        // Tell the fake backend to return responses to all current requests
+        // that are in flight.
+        mockBackend.flush();
 
-            // Now cards should be set on the scope
-            expect(scope.cards).toEqualData([{id: '234', number: '11112222'}]);
-        });
+        // Now cards should be set on the scope
+        expect(scope.cards).toEqualData([{id: '234', number: '11112222'}]);
     });
+});
+```
 
 这个测试看上去和简单的`$http`单元测试非常相似,除了一些细微区别.注意在我们的expect语句里面,取代了简单的"equals"方法,哦我们用的是特殊的"toEqualData"方法.这种eapect语句会智能地省略ngResource添加到对象上的附加方法.
 
@@ -477,6 +479,7 @@ ngResource依赖项是一个封装,它以Angular核心服务`$http`为基础.因
 
 你也许会问这样的问题:为什么我们会做如此疯狂激进的实现机制?让我们先看一个在在异步函数使用方面的标准问题：
 
+```js
     fetchUser(function(user) {
         fetchUserPermissions(user, function(permissions) {
             fetchUserListData(user, permissions, function(list) {
@@ -484,12 +487,14 @@ ngResource依赖项是一个封装,它以Angular核心服务`$http`为基础.因
             });
         });
     });
+```
 上面这个代码就是人们使用JavaScirpt时经常抱怨的令人恐惧的深层嵌套缩进椎体的噩梦.返回值异步本质与实际问题的同步需求之间产生矛盾:导致多级函数包含关系,在这种情况下要想准确跟踪里面某句代码的执行上下文环境就很难.
 
 另外,这种情况对错误处理也有很大影响.错误处理的最好方法是什么?在每次都做错误处理?那代码结构就会非常乱.
 
 为了解决上面这些问题,预期值建议(Promise proposal)机制提供了一个then函数的概念,这个函数会在响应成功返回的时候调用相关的函数去执行,另一方面，当产生错误的时候也会干相同的事，这样整个代码就有嵌套结构变为链式结构.所以之前那个例子用预期值API机制(至少在AngularJS中已经被实现的)改造一下,代码结构会平整许多：
 
+```js
     var deferred = $q.defer();
     var fetchUser = function() {
         // After async calls, call deferred.resolve with the response value
@@ -508,6 +513,7 @@ ngResource依赖项是一个封装,它以Angular核心服务`$http`为基础.因
         }, function(errorReason) {
             // Handle error in any of the steps here in a single stop
     });
+```
 
 那个完全的横椎体代码一下子被优雅地平整了,而且提供了链式的作用域,以及一个单点的错误处理.你在你自己的应用中处理异步请求回调时也可以用相同的代码，只要调用Angular的$q服务.这种机制可以帮我做一些很酷的事情：比如响应拦截.
 
@@ -519,6 +525,7 @@ ngResource依赖项是一个封装,它以Angular核心服务`$http`为基础.因
 
 让我们看一个代码例子，这个例子中的代码拦截响应，并对响应数据做了轻微的数据转换.
 
+```js
     // register the interceptor as a service
     myModule.factory('myInterceptor', function($q, notifyService, errorLog) {
         return function(promise) {
@@ -537,7 +544,7 @@ ngResource依赖项是一个封装,它以Angular核心服务`$http`为基础.因
 
     // Ensure that the interceptor we created is part of the interceptor chain
     $httpProvider.responseInterceptors.push('myInterceptor');
-
+```
 ##安全方面的考虑
 
 目前我们开发Web应用的时候，安全是一个非常重要的关注点，在我们的考虑维度直中，它必须作为首位被考虑.AngularJS给我们提供了一些帮助，同时也带来了两个安全攻击的角度，下面这一节我们将会讲解这些内容.
@@ -570,7 +577,7 @@ AngulaJS中你可以两种方法都用来阻止这个漏洞.在你的应用中�
     ['one', 'two']
 
 AngularJS将会自动的把前缀字符串过滤掉,然后仅仅处理真实JSON数据.
-
+/**/
 ###跨站请求伪造(XSRF)
 
 跨站请求伪造攻击主要有以下特征：
