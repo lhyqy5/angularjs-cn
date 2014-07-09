@@ -167,6 +167,7 @@ Angular带有许多指定, 以帮助你定义应用程序的视图. 很快我们
         </div>
         <script src="angular.js"></script>
         <script>
+        angular.module('myApp', []);
         function CartController($scope){
             $scope.items = [
                 {title: 'Paint pots', quantity: 8, price: 3.95},
