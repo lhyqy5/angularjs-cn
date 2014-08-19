@@ -229,7 +229,7 @@ Table 6-3 指令声明用法选项
 
 图6-1 tab选项卡视图
 
-并不是一堆\<div\>, \<ul\>\<li\>和\<a\>元素, 你可以创建一个\<tab-set\>和\<tab\>指令, 用来声明每个单独的tab选项卡的结构. 然后你的HTML可以做的更好来表达你的模板意图. 最终结果可能看起来像这样:
+并不是一堆`<div>`, `<ul><li>`和`<a>`元素, 你可以创建一个`<tab-set>`和`<tab>`指令, 用来声明每个单独的tab选项卡的结构. 然后你的HTML可以做的更好来表达你的模板意图. 最终结果可能看起来像这样:
 ```html
 	<tab-set>
 		<tab title="Home">
@@ -240,11 +240,11 @@ Table 6-3 指令声明用法选项
 		</tab>
 	</tab-set>
 ```
-你还可以给title绑定一个字符串数据, 通过在\<tab\>或者\<tab-set\>上绑定控制器处理tab选项内容. 它不仅限于用在tabs上--你还可以用于菜单, 折叠式菜单, 弹窗, dialog对话框或者其他任何你希望以这种方式实现的地方.
+你还可以给title绑定一个字符串数据, 通过在`<tab>`或者`<tab-set>`上绑定控制器处理tab选项内容. 它不仅限于用在tabs上--你还可以用于菜单, 手风琴, 弹窗, dialog对话框或者其他任何你希望以这种方式实现的地方.
 
 你可以通过`template`或者`templateUrl`属性来指定替换的DOM元素. 使用`template`通过字符串来设置模板内容, 或者使用`templateUrl`来从服务器的一个文件上来加载模板. 正如你在接下来的例子中会看到, 你可以预先缓存这些模板来减少GET请求, 这有利于提高应用的性能.
 
-让我们来编写一个dumb指令: 一个\<hello\>元素, 只是用于使用\<div\>Hi there\</div\>来替换自身. 在这里, 我们将设置`restrict`来允许元素和设置`template`显示我们所希望的东西. 由于默认的行为只将内容追加到元素中, 因此我们将设置`replace`属性为true来替换原来的模板:
+让我们来编写一个dumb指令: 一个`<hello>`元素, 只是用于使用`<div>Hi there</div>`来替换自身. 在这里, 我们将设置`restrict`来允许元素和设置`template`显示我们所希望的东西. 由于默认的行为只将内容追加到元素中, 因此我们将设置`replace`属性为true来替换原来的模板:
 ```js
 	var appModule = angular.module('app', []);
 	appModule.directive('hello', function(){
@@ -266,17 +266,17 @@ Table 6-3 指令声明用法选项
 ```
 将它载入到浏览器中, 我们会看到"Hi there".
 
-如果你查看页面的源代码, 在页面上你仍然会看到\<hello\>\</hello\>, 但是如果你查看生成的源代码(在Chrome中, 你可以在"Hi there"上右击然后选择审查元素), 你会看到:
+如果你查看页面的源代码, 在页面上你仍然会看到`<hello></hello>`, 但是如果你查看生成的源代码(在Chrome中, 你可以在"Hi there"上右击然后选择审查元素), 你会看到:
 ```html
 	<body>
 		<div>Hi there</div>
 	</body>
 ```
-\<hello\>\</hello\>被模板中的\<div\>替换了.
+`<hello></hello>`被模板中的`<div>`替换了.
 
-如果你从指令定义中移除`replace: true`, 那么你会看到\<hello\>\<div\>Hi there\</div\>\</hello\>.
+如果你从指令定义中移除`replace: true`, 那么你会看到`<hello><div>Hi there</div></hello>`.
 
-通常你会希望使用`templateUrl`而不是`template`, 因为输入HTML字符串并不是那么有趣. `template`属性通常有利于非常小的模板. 使用`templateUrl`同样非常有用, 可以设置适当的页响应头来使模板可缓存. 我们可以像下面这样重写我们的`hello`指令:
+通常你会希望使用`templateUrl`而不是`template`, 因为输入HTML字符串并不是那么有趣. `template`属性通常有利于非常小的模板. 使用templateUrl`同样非常有用, 可以设置适当的头来使模板可缓存. 我们可以像下面这样重写我们的`hello`指令:
 ```js
 	var appModule = angular.module('app', []);
 	appModule.directive('hello', function(){
@@ -326,7 +326,7 @@ Table 6-3 指令声明用法选项
 
 ####Transclusion
 
-除了替换或者追加内容, 你还可以通过`transclude`属性将原来的内容移到新模板中. 当设置为true时, 指令将删除原来的内容, 但是在你的模板中通过一个名为`ng-transclude`的指令重新插入来使它可用. 
+除了替换或者追加内容, 你还可以通过`transclude`属性将原来的内容移到新模板中. 当设置为true时, 指令将删除原来的内容, 但是在你的模板中通过一个名为`ng-transclude`的指令重新插入来使它可用.
 
 我们可以使用transclusion来改变我们的示例:
 ```js
@@ -390,7 +390,7 @@ Angular加载和查找`ng-app`指令来判定应用程序界限.
 		<my-widget config="thing"></my-widget>
 	</div>
 ```
-这里, `compile`函数将只被调用一次, 而`link`函数在每次复制`my-widget`时都会被调用一次--等价于元素在things中的数量. 因此, 如果`my-widget`需要到所有`my-widget`副本(实例)中修改一些公共的东西, 为了提升效率, 正确的做法是在`compile`函数中处理. 
+这里, `compile`函数将只被调用一次, 而`link`函数在每次复制`my-widget`时都会被调用一次--等价于元素在things中的数量. 因此, 如果`my-widget`需要到所有`my-widget`副本(实例)中修改一些公共的东西, 为了提升效率, 正确的做法是在`compile`函数中处理.
 
 你可能还会注意到`compile`函数传入了一个`transclude`属性函数. 这里, 你还有机会以编写一个函数以编程的方式transcludes内容, 对于简单的的基于模板不足以transclusion的情况.
 
@@ -558,7 +558,7 @@ Angular加载和查找`ng-app`指令来判定应用程序界限.
 	<tbody>
 		<tr>
 			<td>restrict: EA</td>
-			<td>一个元素或者属性都可以调用这个指令. 也就是说, \<expander ...\>...\</expander\>与\<div expander...\>...\</div\>是等价</td>
+			<td>一个元素或者属性都可以调用这个指令. 也就是说, `<expander ...>...</expander>`与`<div expander...>...</div>`是等价</td>
 		</tr>
 		<tr>
 			<td>replace:true</td>
@@ -607,7 +607,7 @@ Angular加载和查找`ng-app`指令来判定应用程序界限.
 
 如果你需要直接访问原生的DOM元素你可以通过使用`element[0]`访问对象的第一个元素来获得它.
 
-你可以在Angular文档的`angular.element()`查看它所支持的API的完整列表--你可以用这个函数创建你自己的jqLite包装的DOM元素. 它包含像`addClass()`, `bind()`, `find()`, `toggleClass()`等等其他方法. 其次, 其中大多数有用的核心方法都来自于jQuery, 但是它的代码亮更少.
+你可以在Angular文档的`angular.element()`查看它所支持的API的完整列表--你可以用这个函数创建你自己的jqLite包装的DOM元素. 它包含像`addClass()`, `bind()`, `find()`, `toggleClass()`等等其他方法. 其次, 其中大多数有用的核心方法都来自于jQuery, 但是它的代码量更少.
 
 对于其他的jQuery API, 元素在Angular中都有指定的函数. 这些都是存在的, 无论你是否使用完整的jQuery库.
 
@@ -653,13 +653,13 @@ Table 6-6. Angular specific functions on an element
 						'<div class="title">{{title}}</div>' +
 						'<div class="body closed" ng-transclude></div>' +
 						'</div>',
-						
+
 				link: function(scope, element, attrs) {
 					var titleElement = angular.element(element.children().eq(0));
 					var bodyElement = angular.element(element.children().eq(1));
-					
+
 					titleElement.bind('click', toggle);
-					
+
 					function toggle() {
 						bodyElement.toggleClass('closed');
 					}
@@ -673,21 +673,25 @@ Table 6-6. Angular specific functions on an element
 		display: none;
 	}
 ```
-	
+
 ###控制器
 
-当你有相互嵌套的指令需要相互通信时, 你可以通过控制器做到这一点. 比如一个\<menu\>可能需要知道它自身内部的\<menu-item\>元素它才能适当的显示或者隐藏它们. 同样的对于一个\<tab-set\>也需要知道它的\<tab\>元素, 或者一个\<grid-view\>要知道它的\<grid-element\>元素.
+当你有相互嵌套的指令需要相互通信时, 你可以通过控制器做到这一点. 比如一个`<menu>`可能需要知道它自身内部的`<menu-item>`元素它才能适当的显示或者隐藏它们. 同样的对于一个`<tab-set>`也需要知道它的`<tab>`元素, 或者一个`<grid-view>`要知道它的`<grid-element>`元素.
 
 正如前面所展示的, 创建一个API用于在指令之间沟通, 你可以使用控制器属性的语法声明一个控制器作为一个指令的一部分:
 
+```js
 	controller: function controllerConstructor($scope, $element, $attrs, $transclude)
-	
+```
+
 这个控制器函数就是依赖注入, 因此这里列出的参数都是潜在的可用并且全部都是可选的--它们可以按照任意顺序列出. 它们也仅仅只是可用服务的一个子集.
 
 其他的指令也可以使用`require`属性语法将这个控制器传递给它们. 完整的`require`的形式看起来像:
 
+```js
 	require: '^?directiveName'
-	
+```
+
 关于`require`字符串参数的说明可以在表6-7中找到.
 
 Table 6-7. Options for required controllers
@@ -702,15 +706,15 @@ Table 6-7. Options for required controllers
 	<tbody>
 		<tr>
 			<td>directiveName</td>
-			<td>这个指令驼峰式命名规范应该是来自于控制器. 因此如果我们的\<my-menu-item\>s指令需要在它的父元素\<my-menu\>上找到一个控制器, 我们需要将它编写为`myMenu`.</td>
+			<td>这个指令驼峰式命名规范应该是来自于控制器. 因此如果我们的`<my-menu-item>`s指令需要在它的父元素`<my-menu>`上找到一个控制器, 我们需要将它编写为`myMenu`.</td>
 		</tr>
 		<tr>
 			<td>^</td>
-			<td>默认情况下, Angular会从同一元素的命名指令中获取控制器. 加入可选的^符号表示总是遍历DOM树来以查找指令. 对于\<my-menu\>示例, 我们需要添加这个符号; 最终的字符就是`\^myMenu`.</td>
+			<td>默认情况下, Angular会从同一元素的命名指令中获取控制器. 加入可选的^符号表示总是遍历DOM树来以查找指令. 对于`<my-menu>`示例, 我们需要添加这个符号; 最终的字符就是`\^myMenu`.</td>
 		</tr>
 		<tr>
 			<td>?</td>
-			<td>如果你所需要的控制器没有找到, Angular将抛出一个异常信息来告诉你遇到了什么问题. 添加一个?符号给字符串就是说这个控制器时可选的并且如果没有找到控制器它不应该抛出一个异常. 虽然者听起来不可能, 但是如果我们希望让\<my-menu-item\>不需要使用一个\<my-menu\>容器, 我们可以将这个添加给最终所需要的字符串?\^myMenu.</td>
+			<td>如果你所需要的控制器没有找到, Angular将抛出一个异常信息来告诉你遇到了什么问题. 添加一个?符号给字符串就是说这个控制器时可选的并且如果没有找到控制器它不应该抛出一个异常. 虽然者听起来不可能, 但是如果我们希望让`<my-menu-item>`不需要使用一个`<my-menu>`容器, 我们可以将这个添加给最终所需要的字符串`?\^myMenu`.</td>
 		</tr>
 	</tbody>
 </table>
@@ -722,7 +726,7 @@ Table 6-7. Options for required controllers
 图 6-4. Accordion component in multiple states
 
 首先, 让我们编写处理手风琴菜单的accordion指令. 这里我们将添加我们的控制器构造器方法来处理手风琴:
-
+```js
 	appModule.directive('accordion', function() {
 		return {
 			restrict: 'EA',
@@ -738,18 +742,19 @@ Table 6-7. Options for required controllers
 						}
 					});
 				}
-				
+
 				this.addExpander = function(expander) {
 					expanders.push(expander);
 				}
 			}
 		}
 	});
-	
+```
 这里我们定义了一个`addExpander()`函数给expanders便于调用它来注册自身实例. 我们也创建了一个`gotOpened()`函数给expanders便于调用, 因而让accordion的控制器可以知道它能够去关闭任何其他展开的expanders.
 
 在expander指令自身中, 我们将从它的父元素扩展它所需要的accordion控制器并在适当的时间里调用`addExpander()`和`gotOpened()`方法.
 
+```js
 	appModule.directive('expander', function(){
 		return {
 			restrict: 'EA',
@@ -764,7 +769,7 @@ Table 6-7. Options for required controllers
 			link: function(scope, element, attrs, accordionController) {
 				scope.showMe = false;
 				accordionController.addExpander(scope);
-				
+
 				scope.toggle = function toggle() {
 					scope.showMe = !scope.showMe;
 					accordionController.gotOpened(scope);
@@ -772,6 +777,7 @@ Table 6-7. Options for required controllers
 			}
 		}
 	});
+```
 
 注意在手风琴指令的控制器中我们创建了一个API, 通过它可以让expander可以相互通信.
 
@@ -797,7 +803,7 @@ Table 6-7. Options for required controllers
 			 text: 'I am text should be seen before seeing other texts'}
 		];
 	}
-	
+
 ##小结
 
 正如我们所看到的, 指令允许我们扩展HTML的语法并让很多应用程序按照我们声明的意思工作. 指令使重用(代码重用/组件复用)变得轻而易举--从使用`ng-model`和`ng-controller`配置你的应用程序, 到处理模板的任务的像`ng-repeat`和`ng-view`指令, 再到前几年被限制的可复用的组件像数据栅格, 饼图, 工具提示和选项卡等等.
