@@ -136,70 +136,71 @@ MVC 背后的核心思想是你可以在你的代码中清晰的分离数据管�
 
 图1-3 改变文本框值之后的应用程序
 
-我们并没有在输入字段上注册一个改变值的事件监听器，我们有一个将会自动更新的 UI。同样的情况也适用于来自服务器端的改变。在我们的控制器中，我们可以构造一个服务器端的请求，获取响应，然后设置 `$scope.greeting.text` 等于它返回的值。Angular 会自动更新文本输入框和双大括号中的 text 字段为该返回值。
+我们并没有在输入字段上注册改变值的监听器, 我们有一个将会自动更新的UI.
+同样的情况也适用于来自服务器端的改变. 在我们的控制器中, 我们可以对服务器发出一个请求, 获得响应, 然后设置`$scope.greeting.text`等于它返回的值. Angular会自动更文本输入框和双大括号中的text为该值.
 
-### 依赖注入
+###依赖注入
 
-之前我们提到过，在 `HelloController` 中有很多东西都可以重复，在这里我们并没有编写。例如，`$scope` 对象会将数据绑定自动传递给我们；我们不需要通过调用任何函数来创建它。我们只是通过将它放置在 `HelloController` 的构造器中来请求它。
+之前我们提到过, 在`HelloController`中有很多东西都可以重复, 这里我们并没有编写. 例如, `$scope`对象将自动绑定数据并传递给我们; 我们不需要通过调用任何函数来创建它. 我们只是通过将它放置在HelloController的构造器中来访问它.
 
-正如我们将在后面的章节中会看到，`$scope` 并不是我们唯一可以访问的东西。如果我们希望将数据绑定到用户浏览器的 URL 地址中，我们可以通过将数据绑定植入我们控制器的 `$location` 中来访问管理数据。就像这样：
+正如我们将在后面的章节中会看到, `$scope`并不是我们唯一可以访问的事物. 如果我们希望将数据绑定到用户浏览器的URL地址中, 我们可以通过将用于管理它的对象`$location`放在我们的构造器中来访问它, 就像这样:
 
-	function HelloController($scope, $location){
-		$scope.greeting = {text: 'Hello'};
-		//use $location for something good here...
-	}
+    function HelloController($scope, $location){
+        $scope.greeting = {text: 'Hello'};
+        //use $location for something good here...
+    }
+    
+我们通过Angular的依赖注入系统达到这个神奇的效果. 依赖注入让我们得以延续这种开发的风格, 而不需要创建依赖, 我们的类只需要知道它需要什么.
 
-这个神奇的效果是通过 Angular 的依赖注入系统实现的。依赖注入让我们遵循这种开发风格，而不是创建依赖，我们的类只需要知道它需要什么。
+在此之前, 它是一个被称为得墨忒耳定律的设计模式, 通常也被称作最少知识原则. 由于我们的HelloController的工作只是设置greeting模型的初试状态, 这种模式会告诉你无需担心其他的事情, 例如`$scope`是如何创建的, 或者在哪里可以找到它.
 
-这个效果遵循一个被称为得墨忒耳定律的设计模式，也被称作最少知识原则。由于我们的 `HelloController` 的工作只是设置 greeting 模型的初试状态，这种模式会告诉你无需担心其他的事情，例如 `$scope` 是如何创建的，或者在哪里可以找到它。
+这个特性并不只是通过Angular框架创建的对象才有. 你也可以更好的按照这个风格编写其他的代码.
 
-这个特性并不只是通过 Angular 框架创建的对象才有。你最终创建的任何对象和服务也可以以同样的方式注入。
+###指令
 
-### 指令
+Angular最好的部分之一就是你可以如同编写HTML一样编写你的模板. 之所以可以这样做, 是由于这个框架的核心部分我们已经包含了一个的DOM解析引擎, 它允许你扩展HTML的语法.
 
-Angular 最好的部分之一就是你可以编写你的模板如同 HTML 一样。之所以可以这样做，是因为在这个框架的核心部分我们已经包含了一个强大的 DOM 解析引擎，它允许你扩展 HTML 的语法。
+我们已经在我们的模板中看到了一些不属于HTML规范的属性. 例如包含在双花括号中的数据绑定, 用于指定哪个控制器对应哪部分视图的`ng-controller`, 以及给输入框绑定一个模型的`ng-model`. 这些我们都成为HTML扩展指令.
 
-我们已经在我们的模板中看到了一些不属于 HTML 规范的新属性。例如包含在双花括号中的数据绑定，用于指定哪个控制器对应哪部分视图的 `ng-controller` ，以及将输入框绑定到模型部分的 `ng-model` 。我们称之为 HTML 扩展指令。
+Angular带有许多指定, 以帮助你定义应用程序的视图. 很快我们就会看到更多的指令. 这些指令可以定义来我们通常用作视图的模板中. 它们可以用于声明设置你的应用程序如何工作或者创建可复用的组件.
 
-Angular 自带了许多指令以帮助你定义应用程序的视图。后面我们就会看到更多的指令。这些指令可以定义用来帮助我们定义常见的视图作为模板。它们可以用于声明设置你的应用程序如何工作或者创建可复用的组件。
+你并不仅限于使用Angular自带的指令. 你也可以编写你自己的HTML模板扩展, 做你想做的事情. 
 
-你并不仅限于使用 Angular 自带的指令。你也可以编写你自己的扩展 HTML 模板来做你想做的任何事。
+##示例:购物车
 
-## 示例：购物车
+让我们来看一个较大的例子, 它展示了更多的Angular的能力. 想象一下, 我们要创建一个购物应用程序. 在应用程序的某个地方, 我们需要展示用户的购物车并允许他编辑. 接下来我们直接跳到那部分.
 
-接下来让我们来看一个较大的例子，它展示了更多的 Angular 的能力。想象一下，我们要创建一个购物应用程序。在应用程序的某个地方，我们需要展示用户的购物车并允许他编辑。接下来我们直接跳到那部分。
+    <html ng-app="myApp">
+    <head>
+    <title>Your Shopping Cart</title>
+    </head>
+    <body ng-controller="CartController">
+        <h1>Your Order</h1>
+        <div ng-repeat="item in items">
+            <span{{item.title}}</span>
+            <input ng-model="item.quantity" />
+            <span>{{item.price | currency}}</span>
+            <span>{{item.price * item.quantity | currency}}</span>
+	    <button ng-click="remove($index)">Remove</button>
+        </div>
+        <script src="angular.js"></script>
+        <script>
+        function CartController($scope){
+            $scope.items = [
+                {title: 'Paint pots', quantity: 8, price: 3.95},
+                {title: 'Polka dots', quantity: 17, price: 12.95},
+                {title: 'Pebbles', quantity: 5, price: 6.95}
+            ];
+            
+            $scope.remove = function(index){
+                $scope.item.splice(index, 1);
+            }
+        }
+        </script>
+    </body>
+    </html>
 
-	<html ng-app>
-	<head>
-	<title>Your Shopping Cart</title>
-	</head>
-	<body ng-controller="CartController">
-		<h1>Your Order</h1>
-		<div ng-repeat="item in items">
-			<span>{{item.title}}</span>
-			<input ng-model="item.quantity" />
-			<span>{{item.price | currency}}</span>
-			<span>{{item.price * item.quantity | currency}}</span>
-			<button ng-click="remove($index)">Remove</button>
-		</div>
-		<script src="angular.js"></script>
-		<script>
-		function CartController($scope){
-			$scope.items = [
-				{title: 'Paint pots', quantity: 8, price: 3.95},
-				{title: 'Polka dots', quantity: 17, price: 12.95},
-				{title: 'Pebbles', quantity: 5, price: 6.95}
-			];
-
-			$scope.remove = function(index){
-				$scope.items.splice(index, 1);
-			}
-		}
-		</script>
-	</body>
-	</html>
-
-最终用户界面截屏如图1-4所示：
+返回的用户界面截屏如图1-4所示:
 
 ![shopping-cart](figure/shopping-cart.png)
 
