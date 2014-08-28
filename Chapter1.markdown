@@ -152,7 +152,7 @@ Angular带有许多指定, 以帮助你定义应用程序的视图. 很快我们
 
 让我们来看一个较大的例子, 它展示了更多的Angular的能力. 想象一下, 我们要创建一个购物应用程序. 在应用程序的某个地方, 我们需要展示用户的购物车并允许他编辑. 接下来我们直接跳到那部分.
 
-    <html ng-app="myApp">
+    <html ng-app>
     <head>
     <title>Your Shopping Cart</title>
     </head>
@@ -163,7 +163,7 @@ Angular带有许多指定, 以帮助你定义应用程序的视图. 很快我们
             <input ng-model="item.quantity" />
             <span>{{item.price | currency}}</span>
             <span>{{item.price * item.quantity | currency}}</span>
-            <button onclick="remove($index)">Remove</button>
+            <button ng-click="remove($index)">Remove</button>
         </div>
         <script src="angular.js"></script>
         <script>
@@ -175,7 +175,7 @@ Angular带有许多指定, 以帮助你定义应用程序的视图. 很快我们
             ];
             
             $scope.remove = function(index){
-                $scope.item.splice(index, 1);
+                $scope.items.splice(index, 1);
             }
         }
         </script>
