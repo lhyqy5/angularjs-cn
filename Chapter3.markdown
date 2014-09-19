@@ -84,7 +84,7 @@ AngularJS自带了端对端的测试支持以正确的方式内置到库里面. 
 
 > 默认情况下Yeoman不会创建`test/目录`.
 
-> 虽然E2E测试可能看起来像Jasmine, 但实际上不是的. 它们的函数是异步执行的, 来未来, 可以通过Angular场景运行器(Angular Scenario Runner)运行. 因此不要指望能够做正常情况下Jasmine测试所做的事情(像使用console.log重复输出一个值的情况).
+> 虽然E2E测试可能看起来像Jasmine, 但实际上不是的. 它们的函数是异步执行的, 在未来, 可以通过Angular场景运行器(Angular Scenario Runner)运行. 因此不要指望能够做正常情况下Jasmine测试所做的事情(像使用console.log重复输出一个值的情况).
 
 还生成了一个简单的HTML文件, 可以在浏览器中打开它来手动的运行测试. 然而Yeoman不会生成存根文件, 但是它们遵循相似风格的单元测试.
 
